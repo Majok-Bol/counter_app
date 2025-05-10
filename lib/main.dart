@@ -1,4 +1,5 @@
-import 'package:counter_app/features/home/ui/home_page.dart';
+//handle main dart file
+import 'package:counter_app/features/counter/ui/counter_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -6,8 +7,10 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: CounterPage());
   }
 }
