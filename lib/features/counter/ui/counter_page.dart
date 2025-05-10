@@ -3,24 +3,12 @@ import 'package:counter_app/features/counter/bloc/counter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CounterPage extends StatefulWidget {
-  const CounterPage({super.key});
-
-  @override
-  CounterPageState createState() => CounterPageState();
-}
-
-class CounterPageState extends State<CounterPage> {
-  // //load initial state
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   CounterBloc.add(CounterInitial(count: 0));
-  // }
+class CounterPage extends StatelessWidget {
+  CounterPage({super.key});
 
   //creat instance of counter bloc
   //which manages the bloc
-  final CounterBloc counterBloc = CounterBloc();
+  // final CounterBloc counterBloc = CounterBloc();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CounterBloc, CounterState>(
@@ -36,15 +24,38 @@ class CounterPageState extends State<CounterPage> {
         }
       },
       builder: (context, state) {
-        switch (state.runtimeType) {
-          case CounterLoadingState:
-            return Scaffold(body: Center(child: CircularProgressIndicator()));
-          case CounterLoadingSuccessfulState:
-            return Scaffold(
-              appBar: AppBar(title: Text('Counter App'), centerTitle: true),
-            );
+        if (state is CounterLoadingState) {
+          return Scaffold(body: Center(child: CircularProgressIndicator()));
         }
-        return Container();
+        // handle successful state
+        // final count = state.count;
+
+        return Scaffold(
+          appBar: AppBar(title: Text('Counter App'), centerTitle: true),
+          body: Center(
+            child: Column(
+              children: [
+                // Text('Counter: $count'),
+                Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<CounterBloc>().add(IncrementCounter());
+                      },
+                      child: Text('Increment'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<CounterBloc>().add(DecrementCounter());
+                      },
+                      child: Text('Decrecrement'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
       },
     );
   }
