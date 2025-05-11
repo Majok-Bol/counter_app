@@ -7,11 +7,7 @@ part of 'counter_bloc.dart';
 @immutable
 abstract class CounterState {}
 
-//start count at 0
-class CounterInitial extends CounterState {
-  final int count;
-  CounterInitial({required this.count});
-}
+class CounterInitial extends CounterState {}
 
 //check if value changed
 class CounterValueChanged extends CounterState {
@@ -29,7 +25,11 @@ class CounterMinimumValue extends CounterState {}
 class CounterLoadingState extends CounterState {}
 
 //check if successfully loaded
-class CounterLoadingSuccessfulState extends CounterState {}
+class CounterLoadingSuccessfulState extends CounterState {
+  final int count;
+
+  CounterLoadingSuccessfulState({required this.count});
+}
 
 //check if error occurred during loading
 class CounterErrorLoadingState extends CounterState {}

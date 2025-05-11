@@ -5,6 +5,8 @@ part of 'counter_bloc.dart';
 @immutable
 abstract class CounterEvent {}
 
+class CounterInitialEvent extends CounterEvent {}
+
 //increment counter
 class IncrementCounter extends CounterEvent {}
 
@@ -12,4 +14,4 @@ class IncrementCounter extends CounterEvent {}
 class DecrementCounter extends CounterEvent {}
 
 //reset the counter
-class ResetCounter extends CounterState {}
+class ResetCounter extends CounterEvent {}
