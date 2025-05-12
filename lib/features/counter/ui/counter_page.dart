@@ -44,34 +44,68 @@ class _CounterPageState extends State<CounterPage> {
         if (state is CounterLoadingState) {
           return Scaffold(body: Center(child: CircularProgressIndicator()));
         }
-        if (state is CounterLoadingSuccessfulState) {
+        if (state is CounterLoadingSuccessfulState ||
+            state is CounterMaximumValue ||
+            state is CounterMinimumValue) {
+          int count = 0;
+          if (state is CounterLoadingSuccessfulState) {
+            count = state.count;
+          } else if (state is CounterMaximumValue) {
+            count = 10;
+          } else if (state is CounterMinimumValue) {
+            count = 0;
+          }
           return Scaffold(
-            appBar: AppBar(title: Text('Counter App'), centerTitle: true),
-            body: Center(
+            appBar: AppBar(
+              title: Text('Counter App'),
+              centerTitle: true,
+              backgroundColor: Colors.grey.shade400,
+            ),
+            body: Container(
+              padding: EdgeInsets.all(12),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Counter: ${state.count}'),
+                  Text('Counter: $count', style: TextStyle(fontSize: 22)),
+                  SizedBox(height: 18),
 
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
                         onPressed: () {
                           counterBloc.add(IncrementCounter());
                         },
-                        child: Text('+'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                        ),
+                        child: Text(
+                          '+',
+                          style: TextStyle(fontSize: 28, color: Colors.black),
+                        ),
                       ),
+                      const SizedBox(width: 10),
                       ElevatedButton(
                         onPressed: () {
                           counterBloc.add(DecrementCounter());
                         },
-                        child: Text('-'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey,
+                        ),
+                        child: Text(
+                          '-',
+                          style: TextStyle(fontSize: 28, color: Colors.black),
+                        ),
                       ),
+                      const SizedBox(width: 10),
                       ElevatedButton(
                         onPressed: () {
                           counterBloc.add(ResetCounter());
                         },
-                        child: Text('Reset'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue.shade200,
+                        ),
+                        child: Text('Reset', style: TextStyle(fontSize: 15)),
                       ),
                     ],
                   ),

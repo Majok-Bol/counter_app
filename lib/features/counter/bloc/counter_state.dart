@@ -5,7 +5,11 @@ part of 'counter_bloc.dart';
 //eg show users logged in
 //or display products
 @immutable
+//blueprint for creating states
 abstract class CounterState {}
+//initial state
+//first state when one
+//opens the app
 
 class CounterInitial extends CounterState {}
 
